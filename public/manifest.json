@@ -1,0 +1,14 @@
+{
+  "name": "Vault — Credit Card Advisor",
+  "short_name": "Vault",
+  "description": "Ask which card to use. AI advisor with the math shown.",
+  "start_url": "/dashboard",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#05070d",
+  "theme_color": "#05070d",
+  "icons": [
+    { "src": "/icon.svg", "type": "image/svg+xml", "sizes": "any", "purpose": "any maskable" }
+  ]
+}

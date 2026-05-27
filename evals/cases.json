@@ -1,0 +1,157 @@
+[
+  {
+    "query": "I'm buying a $3,000 MacBook at the Apple Store — best card?",
+    "expected_category": "electronics",
+    "expected_amount": 3000,
+    "expected_international": false,
+    "wallet": [
+      { "name": "Sapphire Preferred", "categories": [{ "category": "travel", "multiplier": 3 }, { "category": "dining", "multiplier": 2 }, { "category": "flat", "multiplier": 1 }] },
+      { "name": "Freedom Unlimited", "categories": [{ "category": "flat", "multiplier": 1.5 }] },
+      { "name": "Custom Cash", "categories": [{ "category": "electronics", "multiplier": 5, "cap_amount": 500, "cap_period": "month" }, { "category": "flat", "multiplier": 1 }] }
+    ],
+    "expected_top": "Custom Cash"
+  },
+  {
+    "query": "Going to Tokyo next month for $4k of travel — which card?",
+    "expected_category": "travel",
+    "expected_amount": 4000,
+    "expected_international": true,
+    "wallet": [
+      { "name": "Sapphire Preferred", "foreign_txn_fee_pct": 0, "categories": [{ "category": "travel", "multiplier": 3 }, { "category": "flat", "multiplier": 1 }] },
+      { "name": "Cash Everyday", "foreign_txn_fee_pct": 3, "categories": [{ "category": "travel", "multiplier": 5 }, { "category": "flat", "multiplier": 1 }] }
+    ],
+    "expected_top": "Sapphire Preferred"
+  },
+  {
+    "query": "$120 dinner at a steakhouse tonight",
+    "expected_category": "dining",
+    "expected_amount": 120,
+    "wallet": [
+      { "name": "Amex Gold", "categories": [{ "category": "dining", "multiplier": 4 }, { "category": "flat", "multiplier": 1 }] },
+      { "name": "Freedom Unlimited", "categories": [{ "category": "flat", "multiplier": 1.5 }] }
+    ],
+    "expected_top": "Amex Gold"
+  },
+  {
+    "query": "$250 grocery run at Whole Foods",
+    "expected_category": "groceries",
+    "expected_amount": 250,
+    "wallet": [
+      { "name": "Amex Gold", "categories": [{ "category": "groceries", "multiplier": 4, "cap_amount": 25000, "cap_period": "year" }, { "category": "flat", "multiplier": 1 }] },
+      { "name": "Freedom Flex", "categories": [{ "category": "flat", "multiplier": 1 }] }
+    ],
+    "expected_top": "Amex Gold"
+  },
+  {
+    "query": "$80 fill-up at Shell",
+    "expected_category": "gas",
+    "expected_amount": 80,
+    "wallet": [
+      { "name": "Costco Anywhere", "categories": [{ "category": "gas", "multiplier": 4 }, { "category": "flat", "multiplier": 1 }] },
+      { "name": "Sapphire Preferred", "categories": [{ "category": "travel", "multiplier": 3 }, { "category": "flat", "multiplier": 1 }] }
+    ],
+    "expected_top": "Costco Anywhere"
+  },
+  {
+    "query": "Uber to the airport, $45",
+    "expected_category": "transit",
+    "expected_amount": 45,
+    "wallet": [
+      { "name": "Sapphire Reserve", "categories": [{ "category": "travel", "multiplier": 3 }, { "category": "transit", "multiplier": 3 }, { "category": "flat", "multiplier": 1 }] },
+      { "name": "Cash Everyday", "categories": [{ "category": "flat", "multiplier": 1 }] }
+    ],
+    "expected_top": "Sapphire Reserve"
+  },
+  {
+    "query": "Annual Netflix subscription, $180/year",
+    "expected_category": "streaming",
+    "expected_amount": 180,
+    "wallet": [
+      { "name": "Blue Cash Preferred", "categories": [{ "category": "streaming", "multiplier": 6 }, { "category": "flat", "multiplier": 1 }] },
+      { "name": "Freedom Unlimited", "categories": [{ "category": "flat", "multiplier": 1.5 }] }
+    ],
+    "expected_top": "Blue Cash Preferred"
+  },
+  {
+    "query": "Costco run, about $400",
+    "expected_category": "warehouse_club",
+    "expected_amount": 400,
+    "wallet": [
+      { "name": "Costco Anywhere", "categories": [{ "category": "warehouse_club", "multiplier": 2 }, { "category": "flat", "multiplier": 1 }] },
+      { "name": "Freedom Unlimited", "categories": [{ "category": "flat", "multiplier": 1.5 }] }
+    ],
+    "expected_top": "Costco Anywhere"
+  },
+  {
+    "query": "$300 at Home Depot for tools",
+    "expected_category": "home_improvement",
+    "expected_amount": 300,
+    "wallet": [
+      { "name": "Bank of America Cash Rewards", "categories": [{ "category": "home_improvement", "multiplier": 3 }, { "category": "flat", "multiplier": 1 }] },
+      { "name": "Freedom Unlimited", "categories": [{ "category": "flat", "multiplier": 1.5 }] }
+    ],
+    "expected_top": "Bank of America Cash Rewards"
+  },
+  {
+    "query": "$600 flight on Delta",
+    "expected_category": "travel",
+    "expected_amount": 600,
+    "wallet": [
+      { "name": "Amex Platinum", "categories": [{ "category": "travel", "multiplier": 5 }, { "category": "flat", "multiplier": 1 }] },
+      { "name": "Sapphire Preferred", "categories": [{ "category": "travel", "multiplier": 3 }, { "category": "flat", "multiplier": 1 }] }
+    ],
+    "expected_top": "Amex Platinum"
+  },
+  {
+    "query": "Marriott stay in Paris, $1,200, traveling internationally",
+    "expected_category": "travel",
+    "expected_amount": 1200,
+    "expected_international": true,
+    "wallet": [
+      { "name": "Bonvoy Boundless", "foreign_txn_fee_pct": 0, "categories": [{ "category": "travel", "multiplier": 6 }, { "category": "flat", "multiplier": 2 }] },
+      { "name": "Capital One Quicksilver", "foreign_txn_fee_pct": 0, "categories": [{ "category": "flat", "multiplier": 1.5 }] },
+      { "name": "Cash Everyday", "foreign_txn_fee_pct": 3, "categories": [{ "category": "flat", "multiplier": 1 }] }
+    ],
+    "expected_top": "Bonvoy Boundless"
+  },
+  {
+    "query": "$50 Spotify family plan",
+    "expected_category": "streaming",
+    "expected_amount": 50,
+    "wallet": [
+      { "name": "Blue Cash Preferred", "categories": [{ "category": "streaming", "multiplier": 6 }, { "category": "flat", "multiplier": 1 }] },
+      { "name": "Cash Everyday", "categories": [{ "category": "flat", "multiplier": 1 }] }
+    ],
+    "expected_top": "Blue Cash Preferred"
+  },
+  {
+    "query": "$60 at CVS for pharmacy",
+    "expected_category": "drugstore",
+    "expected_amount": 60,
+    "wallet": [
+      { "name": "Blue Cash Preferred", "categories": [{ "category": "drugstore", "multiplier": 3 }, { "category": "flat", "multiplier": 1 }] },
+      { "name": "Sapphire Preferred", "categories": [{ "category": "travel", "multiplier": 3 }, { "category": "flat", "multiplier": 1 }] }
+    ],
+    "expected_top": "Blue Cash Preferred"
+  },
+  {
+    "query": "$150 at Sephora",
+    "expected_category": "beauty",
+    "expected_amount": 150,
+    "wallet": [
+      { "name": "Sephora Visa", "categories": [{ "category": "beauty", "multiplier": 4 }, { "category": "flat", "multiplier": 1 }] },
+      { "name": "Freedom Unlimited", "categories": [{ "category": "flat", "multiplier": 1.5 }] }
+    ],
+    "expected_top": "Sephora Visa"
+  },
+  {
+    "query": "$200 Amazon order",
+    "expected_category": "online_shopping",
+    "expected_amount": 200,
+    "wallet": [
+      { "name": "Amazon Prime Visa", "categories": [{ "category": "online_shopping", "multiplier": 5 }, { "category": "flat", "multiplier": 1 }] },
+      { "name": "Cash Everyday", "categories": [{ "category": "flat", "multiplier": 1 }] }
+    ],
+    "expected_top": "Amazon Prime Visa"
+  }
+]
