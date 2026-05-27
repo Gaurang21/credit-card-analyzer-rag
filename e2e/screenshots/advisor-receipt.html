@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Vault — Advisor</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+
+
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+  html,
+  body {
+    height: 100%;
+  }
+  body {
+    @apply bg-ink-950 text-ink-100 antialiased font-sans;
+    background-image:
+      radial-gradient(circle at 18% -10%, rgba(200, 165, 96, 0.16), transparent 45%),
+      radial-gradient(circle at 80% 110%, rgba(52, 211, 153, 0.12), transparent 50%),
+      linear-gradient(180deg, #05070d 0%, #0b0e18 100%);
+    background-attachment: fixed;
+  }
+  ::selection {
+    @apply bg-accent/30 text-white;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply border border-white/5 bg-white/[0.03] backdrop-blur-xl;
+  }
+  .glass-card {
+    @apply rounded-2xl border border-white/[0.06] bg-gradient-to-b from-white/[0.04] to-white/[0.01] shadow-card;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-medium tracking-tight transition-all duration-200 min-h-[44px];
+  }
+  .btn-primary {
+    @apply btn bg-accent text-ink-950 hover:bg-accent-soft shadow-glow;
+  }
+  .btn-ghost {
+    @apply btn border border-white/10 bg-white/[0.02] text-ink-100 hover:bg-white/[0.06];
+  }
+  .btn-quiet {
+    @apply btn text-ink-300 hover:text-white hover:bg-white/[0.04];
+  }
+  .input {
+    @apply w-full rounded-xl border border-white/10 bg-ink-900/60 px-4 py-3 text-ink-50 placeholder:text-ink-400 focus:border-accent/60 focus:outline-none focus:ring-2 focus:ring-accent/20;
+  }
+  .label {
+    @apply mb-1.5 block text-xs font-medium uppercase tracking-[0.14em] text-ink-300;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs font-medium text-ink-200;
+  }
+  .pill-tab {
+    @apply flex-1 rounded-lg px-3 py-2 text-sm font-medium text-ink-300 transition-colors hover:text-white aria-selected:bg-white/[0.08] aria-selected:text-white;
+  }
+  .receipt {
+    @apply rounded-xl border border-dashed border-white/10 bg-ink-900/40 p-4 font-mono text-sm leading-relaxed text-ink-200;
+  }
+  .gold-text {
+    background: linear-gradient(135deg, #e6d3a3 0%, #c8a560 45%, #8a6f3a 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+/* Credit-card visual (used on dashboard) */
+.card-face {
+  position: relative;
+  border-radius: 22px;
+  padding: 22px;
+  background: linear-gradient(135deg, #1a2030 0%, #0e1320 60%, #050811 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.7), 0 8px 24px -12px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  isolation: isolate;
+}
+.card-face::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(135deg, rgba(200, 165, 96, 0.5), transparent 35%, transparent 65%, rgba(200, 165, 96, 0.2));
+  z-index: -1;
+  border-radius: inherit;
+  opacity: 0.6;
+}
+.card-face::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 90% 0%, rgba(200, 165, 96, 0.18), transparent 40%),
+    radial-gradient(circle at 0% 100%, rgba(52, 211, 153, 0.08), transparent 50%);
+  pointer-events: none;
+}
+.card-chip {
+  width: 36px;
+  height: 28px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #e6d3a3, #8a6f3a);
+  position: relative;
+}
+.card-chip::after {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border-radius: 4px;
+  background:
+    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.25) 0 1px, transparent 1px 6px),
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0 1px, transparent 1px 6px);
+}
+
+.shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.06), transparent);
+  background-size: 400px 100%;
+  animation: shimmer 2.4s linear infinite;
+}
+@keyframes shimmer {
+  0% {
+    background-position: -400px 0;
+  }
+  100% {
+    background-position: 400px 0;
+  }
+}
+</style>
+</head>
+<body class="bg-ink-950 text-ink-100 min-h-screen" style="background-image: radial-gradient(circle at 18% -10%, rgba(200,165,96,0.16), transparent 45%), radial-gradient(circle at 80% 110%, rgba(52,211,153,0.12), transparent 50%), linear-gradient(180deg,#05070d 0%, #0b0e18 100%); background-attachment: fixed;">
+
+      <div class="mx-auto max-w-3xl px-5 py-10">
+        <header class="mb-6">
+          <p class="chip">Advisor</p>
+          <h1 class="mt-2 font-display text-4xl">Which card should I use?</h1>
+        </header>
+        <form class="glass-card flex flex-col gap-3 p-4 md:flex-row md:items-center">
+          <input class="input flex-1" value="I'm buying a $3,000 MacBook — which card?" readonly>
+          <button class="btn-primary">Ask</button>
+        </form>
+        <div class="flex flex-wrap gap-2 my-6">
+          <span class="chip">merchant: Apple Store</span>
+          <span class="chip">category: electronics</span>
+          <span class="chip">amount: $3,000.00</span>
+          <span class="chip">match: Apple Store (93%)</span>
+        </div>
+        <h2 class="font-display text-2xl mb-3">Recommended</h2>
+        <article class="receipt border-accent/40 shadow-glow mb-3">
+          <div class="flex items-start justify-between font-sans">
+            <div>
+              <div class="text-[10px] uppercase tracking-widest text-ink-400">#1 · top pick</div>
+              <div class="font-display text-lg text-white">Citi Custom Cash</div>
+              <div class="text-xs text-ink-400">Citi</div>
+            </div>
+            <div class="text-right">
+              <div class="text-[10px] uppercase tracking-widest text-ink-400">net value</div>
+              <div class="font-display text-2xl gold-text">$150.00</div>
+            </div>
+          </div>
+          <hr class="my-3 border-white/5" />
+          <ul class="space-y-1.5">
+            <li>5× electronics on $3,000.00 = <span class="text-white">15,000 pts</span> <span class="text-ink-400">≈ $150.00</span></li>
+            <li class="text-ink-400">⚠ Category cap: $500/month</li>
+          </ul>
+        </article>
+        <article class="receipt mb-3">
+          <div class="flex items-start justify-between font-sans">
+            <div>
+              <div class="text-[10px] uppercase tracking-widest text-ink-400">#2</div>
+              <div class="font-display text-lg text-white">Freedom Unlimited</div>
+              <div class="text-xs text-ink-400">Chase</div>
+            </div>
+            <div class="text-right">
+              <div class="text-[10px] uppercase tracking-widest text-ink-400">net value</div>
+              <div class="font-display text-2xl text-white">$45.00</div>
+            </div>
+          </div>
+          <hr class="my-3 border-white/5" />
+          <ul class="space-y-1.5">
+            <li>1.5× flat on $3,000.00 = <span class="text-white">4,500 pts</span> <span class="text-ink-400">≈ $45.00</span></li>
+          </ul>
+        </article>
+      </div>
+    
+</body>
+</html>
