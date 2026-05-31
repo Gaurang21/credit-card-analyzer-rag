@@ -1,5 +1,12 @@
 import "server-only";
 import { env, isOllamaConfigured } from "@/lib/env";
+import { DEMO_MODE } from "@/lib/demo/flag";
+import {
+  fakeAdvisorStream,
+  fakeCardExtraction,
+  fakeEmbedding,
+  fakeQueryIntent,
+} from "@/lib/demo/ollama-fake";
 
 export class OllamaError extends Error {
   constructor(
@@ -48,6 +55,12 @@ export interface ChatOptions {
 
 /** Non-streaming chat — returns the full message content. */
 export async function chat(messages: ChatMessage[], opts: ChatOptions = {}): Promise<string> {
+  if (DEMO_MODE) {
+    const sys = messages.find((m) => m.role === "system")?.content ?? "";
+    if (sys.includes("structured intent")) return fakeQueryIntent(messages[messages.length - 1]?.content ?? "");
+    if (sys.includes("credit-card data extractor")) return fakeCardExtraction();
+    return "Demo response.";
+  }
   const body = {
     model: opts.model ?? env.OLLAMA_CHAT_MODEL,
     messages,
@@ -65,6 +78,10 @@ export async function* chatStream(
   messages: ChatMessage[],
   opts: ChatOptions = {},
 ): AsyncGenerator<string, void, unknown> {
+  if (DEMO_MODE) {
+    for await (const chunk of fakeAdvisorStream(messages)) yield chunk;
+    return;
+  }
   const body = {
     model: opts.model ?? env.OLLAMA_CHAT_MODEL,
     messages,
@@ -99,6 +116,7 @@ export async function* chatStream(
 
 /** Single embedding. */
 export async function embed(text: string): Promise<number[]> {
+  if (DEMO_MODE) return fakeEmbedding(text);
   const body = { model: env.OLLAMA_EMBED_MODEL, input: text };
   const res = await ollamaFetch("/api/embed", { method: "POST", body: JSON.stringify(body) });
   const data = (await res.json()) as { embeddings?: number[][] };
@@ -110,6 +128,7 @@ export async function embed(text: string): Promise<number[]> {
 /** Batched embeddings. */
 export async function embedBatch(texts: string[]): Promise<number[][]> {
   if (texts.length === 0) return [];
+  if (DEMO_MODE) return texts.map((t) => fakeEmbedding(t));
   const body = { model: env.OLLAMA_EMBED_MODEL, input: texts };
   const res = await ollamaFetch("/api/embed", { method: "POST", body: JSON.stringify(body) });
   const data = (await res.json()) as { embeddings?: number[][] };
