@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Sparkles, Plus } from "lucide-react";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { CardTile } from "@/components/card-tile";
 import { formatUSD } from "@/lib/utils";
@@ -27,8 +28,12 @@ export default async function DashboardPage() {
           </p>
         </div>
         <div className="flex gap-2">
-          <Link href="/advisor" className="btn-ghost">Ask the advisor</Link>
-          <Link href="/cards/new" className="btn-primary">+ Add card</Link>
+          <Link href="/advisor" className="btn-ghost">
+            <Sparkles className="h-4 w-4" aria-hidden /> Ask the advisor
+          </Link>
+          <Link href="/cards/new" className="btn-primary">
+            <Plus className="h-4 w-4" aria-hidden /> Add card
+          </Link>
         </div>
       </header>
 

@@ -3,15 +3,16 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useTransition } from "react";
+import { Wallet, Sparkles, CreditCard, History, type LucideIcon } from "lucide-react";
 import { Logo } from "@/components/logo";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 import { cn } from "@/lib/utils";
 
-const NAV: { href: string; label: string; icon: (active: boolean) => React.ReactNode }[] = [
-  { href: "/dashboard", label: "Wallet", icon: (a) => <WalletIcon active={a} /> },
-  { href: "/advisor", label: "Advisor", icon: (a) => <SparkIcon active={a} /> },
-  { href: "/cards", label: "Cards", icon: (a) => <StackIcon active={a} /> },
-  { href: "/history", label: "History", icon: (a) => <ClockIcon active={a} /> },
+const NAV: { href: string; label: string; icon: LucideIcon }[] = [
+  { href: "/dashboard", label: "Wallet", icon: Wallet },
+  { href: "/advisor", label: "Advisor", icon: Sparkles },
+  { href: "/cards", label: "Cards", icon: CreditCard },
+  { href: "/history", label: "History", icon: History },
 ];
 
 export function AppShell({ email, children }: { email: string; children: React.ReactNode }) {
@@ -35,6 +36,7 @@ export function AppShell({ email, children }: { email: string; children: React.R
         <nav className="mt-10 flex flex-col gap-1">
           {NAV.map((item) => {
             const active = pathname.startsWith(item.href);
+            const Icon = item.icon;
             return (
               <Link
                 key={item.href}
@@ -44,7 +46,7 @@ export function AppShell({ email, children }: { email: string; children: React.R
                   active ? "bg-white/[0.07] text-white shadow-inset" : "text-ink-300 hover:bg-white/[0.04] hover:text-white",
                 )}
               >
-                <span className="text-accent">{item.icon(active)}</span>
+                <Icon className="h-5 w-5 text-accent" strokeWidth={active ? 2.2 : 1.8} aria-hidden />
                 {item.label}
               </Link>
             );
@@ -77,6 +79,7 @@ export function AppShell({ email, children }: { email: string; children: React.R
       <nav className="fixed bottom-0 left-0 right-0 z-30 grid grid-cols-4 border-t border-white/5 bg-ink-950/90 backdrop-blur-lg md:hidden">
         {NAV.map((item) => {
           const active = pathname.startsWith(item.href);
+          const Icon = item.icon;
           return (
             <Link
               key={item.href}
@@ -86,52 +89,12 @@ export function AppShell({ email, children }: { email: string; children: React.R
                 active ? "text-white" : "text-ink-400",
               )}
             >
-              <span className={active ? "text-accent" : ""}>{item.icon(active)}</span>
+              <Icon className={cn("h-5 w-5", active && "text-accent")} strokeWidth={active ? 2.2 : 1.8} aria-hidden />
               {item.label}
             </Link>
           );
         })}
       </nav>
     </div>
-  );
-}
-
-function WalletIcon({ active }: { active: boolean }) {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={active ? 2.2 : 1.8} strokeLinecap="round" strokeLinejoin="round">
-      <rect x="3" y="6" width="18" height="13" rx="3" />
-      <path d="M3 10h18" />
-      <circle cx="16" cy="14.5" r="1" />
-    </svg>
-  );
-}
-function SparkIcon({ active }: { active: boolean }) {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={active ? 2.2 : 1.8} strokeLinecap="round" strokeLinejoin="round">
-      <path d="M12 3v4" />
-      <path d="M12 17v4" />
-      <path d="M3 12h4" />
-      <path d="M17 12h4" />
-      <path d="M5.6 5.6 8 8" />
-      <path d="M16 16l2.4 2.4" />
-      <path d="M5.6 18.4 8 16" />
-      <path d="M16 8l2.4-2.4" />
-    </svg>
-  );
-}
-function StackIcon({ active }: { active: boolean }) {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={active ? 2.2 : 1.8} strokeLinecap="round" strokeLinejoin="round">
-      <rect x="3" y="4" width="18" height="6" rx="2" />
-      <rect x="3" y="14" width="18" height="6" rx="2" />
-    </svg>
-  );
-}
-function ClockIcon({ active }: { active: boolean }) {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={active ? 2.2 : 1.8} strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="12" r="9" />
-      <path d="M12 7v5l3 2" />
-    </svg>
   );
 }

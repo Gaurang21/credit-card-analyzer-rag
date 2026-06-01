@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Pencil, Globe, FileText, Upload } from "lucide-react";
 import { CardForm } from "@/components/card-form";
 import type { CardInput } from "@/lib/cards/schema";
 
@@ -66,9 +67,15 @@ export function AddCardWizard() {
   return (
     <div className="space-y-6">
       <div role="tablist" className="glass-card flex gap-1 p-1">
-        <button role="tab" aria-selected={tab === "manual"} onClick={() => setTab("manual")} className="pill-tab">Manual</button>
-        <button role="tab" aria-selected={tab === "web"} onClick={() => setTab("web")} className="pill-tab">Fetch from web</button>
-        <button role="tab" aria-selected={tab === "pdf"} onClick={() => setTab("pdf")} className="pill-tab">Upload PDF</button>
+        <button role="tab" aria-selected={tab === "manual"} onClick={() => setTab("manual")} className="pill-tab inline-flex items-center justify-center gap-2">
+          <Pencil className="h-4 w-4" aria-hidden /> Manual
+        </button>
+        <button role="tab" aria-selected={tab === "web"} onClick={() => setTab("web")} className="pill-tab inline-flex items-center justify-center gap-2">
+          <Globe className="h-4 w-4" aria-hidden /> Fetch from web
+        </button>
+        <button role="tab" aria-selected={tab === "pdf"} onClick={() => setTab("pdf")} className="pill-tab inline-flex items-center justify-center gap-2">
+          <FileText className="h-4 w-4" aria-hidden /> Upload PDF
+        </button>
       </div>
 
       {tab === "manual" ? (
@@ -189,6 +196,7 @@ function UploadPdf({ onParsed }: { onParsed: (c: CardInput) => void }) {
           data-testid="pdf-input"
           onChange={(e) => setFile(e.target.files?.[0] ?? null)}
         />
+        <Upload className="h-6 w-6 text-ink-300" aria-hidden />
         <span className="text-sm text-ink-200">{file ? file.name : "Click to choose a PDF"}</span>
         <span className="text-xs text-ink-400">Max ~10 MB</span>
       </label>

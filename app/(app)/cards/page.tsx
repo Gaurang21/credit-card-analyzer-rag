@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Plus } from "lucide-react";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { formatUSD } from "@/lib/utils";
 
@@ -20,7 +21,7 @@ export default async function CardsPage() {
           <p className="chip">Cards</p>
           <h1 className="mt-2 font-display text-4xl">All cards</h1>
         </div>
-        <Link href="/cards/new" className="btn-primary">+ Add card</Link>
+        <Link href="/cards/new" className="btn-primary"><Plus className="h-4 w-4" aria-hidden /> Add card</Link>
       </header>
 
       <div className="glass-card overflow-hidden">
