@@ -2,6 +2,7 @@ import { z } from "zod";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { retrieve } from "@/lib/rag/retrieve";
 import { rankCards, streamAdvisor } from "@/lib/rag/advisor";
+import { chatProviderId } from "@/lib/ai";
 
 const BodySchema = z.object({ query: z.string().min(2).max(1000) });
 
@@ -49,6 +50,7 @@ export async function POST(req: Request) {
             resolvedCategory: retrieval.resolvedCategory,
             merchantMatch: retrieval.merchantMatch,
             ranked: rankedPayload,
+            provider: chatProviderId(),
           },
         });
 

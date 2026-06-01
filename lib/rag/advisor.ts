@@ -1,5 +1,5 @@
 import "server-only";
-import { chatStream } from "@/lib/ollama/client";
+import { chatStream } from "@/lib/ai";
 import { ADVISOR_PROMPT } from "@/lib/ollama/prompts";
 import type { RetrievalResult } from "./retrieve-types";
 import type { RankedCard } from "./rank";

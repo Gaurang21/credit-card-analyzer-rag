@@ -26,6 +26,7 @@ interface MetaPayload {
   resolvedCategory: string | null;
   merchantMatch: { merchant: string; category: string; similarity: number } | null;
   ranked: RankPayload[];
+  provider?: string;
 }
 
 export function AdvisorChat({ samples }: { samples: string[] }) {
@@ -149,6 +150,7 @@ function IntentRow({ meta }: { meta: MetaPayload }) {
   if (meta.intent.amount != null) chips.push(`amount: ${formatUSD(meta.intent.amount)}`);
   if (meta.intent.is_international) chips.push("international");
   if (meta.merchantMatch) chips.push(`match: ${meta.merchantMatch.merchant} (${(meta.merchantMatch.similarity * 100).toFixed(0)}%)`);
+  if (meta.provider) chips.push(`via ${meta.provider}`);
   return (
     <div className="flex flex-wrap gap-2" data-testid="advisor-intent">
       {chips.map((c) => <span key={c} className="chip">{c}</span>)}

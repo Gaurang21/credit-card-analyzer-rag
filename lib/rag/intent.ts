@@ -1,6 +1,6 @@
 import "server-only";
 import { z } from "zod";
-import { chat } from "@/lib/ollama/client";
+import { chat } from "@/lib/ai";
 import { QUERY_INTENT_PROMPT } from "@/lib/ollama/prompts";
 import { extractJson } from "@/lib/ollama/extract-json";
 import type { QueryIntent } from "./retrieve-types";

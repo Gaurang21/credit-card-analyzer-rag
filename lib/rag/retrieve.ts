@@ -1,5 +1,5 @@
 import "server-only";
-import { embed } from "@/lib/ollama/client";
+import { embed } from "@/lib/ai";
 import { createSupabaseServerClient, createSupabaseAdminClient } from "@/lib/supabase/server";
 import { detectIntent } from "./intent";
 import type { RetrievedCard, RetrievalResult } from "./retrieve-types";

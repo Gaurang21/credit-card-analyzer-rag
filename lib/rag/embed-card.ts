@@ -1,5 +1,5 @@
 import "server-only";
-import { embed } from "@/lib/ollama/client";
+import { embed } from "@/lib/ai";
 import { buildCardDoc } from "@/lib/cards/text";
 import { createSupabaseAdminClient } from "@/lib/supabase/server";
 import type { CardInput } from "@/lib/cards/schema";

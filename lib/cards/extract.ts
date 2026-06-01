@@ -1,5 +1,5 @@
 import "server-only";
-import { chat } from "@/lib/ollama/client";
+import { chat } from "@/lib/ai";
 import { CARD_EXTRACTION_PROMPT } from "@/lib/ollama/prompts";
 import { extractJson } from "@/lib/ollama/extract-json";
 import { ExtractedCardSchema, type ExtractedCard } from "./schema";
